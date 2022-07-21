@@ -9,15 +9,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import { COLOR_LIGHT, COLOR_MID, COLOR_DARK } from '../../theme/defaultTheme';
 
+// font imports
+import '@fontsource/archivo';
+
 // Other imports
-import { TServerResponse } from '../types/TServerResponse.type';
 import { useState } from 'react';
-import { setLocalStorage } from '../utils/localStorageHelpers';
 import { useAtom } from 'jotai';
-import {
-  frequencyListWeightsAtom,
-  searchFieldInputAtom,
-} from '../../utils/jotai';
+import { isSearchingAtom, searchFieldInputAtom } from '../../utils/jotai';
 
 const InputTextField = styled(TextField)({
   '& label.Mui-focused': {
@@ -25,9 +23,9 @@ const InputTextField = styled(TextField)({
   },
 });
 
-function Input() {
+function SearchField() {
+  const [__isSearching, setIsSearching] = useAtom(isSearchingAtom);
   const [searchFieldInput, setSearchFieldInput] = useAtom(searchFieldInputAtom);
-  const [frequencyListWeights, _] = useAtom(frequencyListWeightsAtom);
 
   const [badResponseSnackbarOpen, setBadResponseSnackbarOpen] = useState(false);
   const [snackbarText, setSnackbarText] = useState('');
@@ -98,7 +96,7 @@ function Input() {
         <Grid item xs={12} sm={6}>
           <Button
             fullWidth
-            onClick={handleSearchButtonClick}
+            onClick={() => setIsSearching(true)}
             aria-label='search'
             variant='outlined'
             startIcon={<SearchIcon />}
@@ -112,4 +110,4 @@ function Input() {
   );
 }
 
-export default Input;
+export default SearchField;

@@ -4,6 +4,10 @@ specifiers:
   '@babel/core': '7'
   '@emotion/react': '11'
   '@emotion/styled': ^11.9.3
+  '@fontsource/archivo': ^4.5.7
+  '@fontsource/eb-garamond': ^4.5.8
+  '@fontsource/roboto': ^4.5.7
+  '@fontsource/roboto-serif': ^4.5.6
   '@mui/icons-material': ^5.8.4
   '@mui/material': ^5.9.1
   '@prisma/client': ^4.1.0
@@ -30,6 +34,10 @@ dependencies:
   '@babel/core': 7.18.9
   '@emotion/react': 11.9.3_svw63b2ljugaa2k554eh3tftza
   '@emotion/styled': 11.9.3_fvt6vw5dbjpm44qz3h4f3p6jia
+  '@fontsource/archivo': 4.5.7
+  '@fontsource/eb-garamond': 4.5.8
+  '@fontsource/roboto': 4.5.7
+  '@fontsource/roboto-serif': 4.5.6
   '@mui/icons-material': 5.8.4_6xf72brc6yidekpcuuf5zj4b2q
   '@mui/material': 5.9.1_h2u6a3oivtyocvjxeke7xcvlfa
   '@prisma/client': 4.1.0_prisma@4.1.0
@@ -414,6 +422,22 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@fontsource/archivo/4.5.7:
+    resolution: {integrity: sha512-OTte/P/6rCVzW917JR0CvgVohh/xGkWIks/TZRoyg7vnEWi/enwOfXxJOj4uJRWpORft9kwF6WJXBmSVceC0bw==}
+    dev: false
+
+  /@fontsource/eb-garamond/4.5.8:
+    resolution: {integrity: sha512-RjSjojD5JvIYiRvmaei2E+dyVkiiBYthOQoIwLn9K6uStnjhXl00owlBZdrVLxc7dF7Hnu8J/OvIUguiLDWP/g==}
+    dev: false
+
+  /@fontsource/roboto-serif/4.5.6:
+    resolution: {integrity: sha512-bFU1k5CXgUM4xKHfIe3eE83XQwc3UcBiNRnKrp6XaLR1G4EnhRxuMeuJ7pGsUnx5BwjTSUwIIIfDlbN4QuvYyw==}
+    dev: false
+
+  /@fontsource/roboto/4.5.7:
+    resolution: {integrity: sha512-m57UMER23Mk6Drg9OjtHW1Y+0KPGyZfE5XJoPTOsLARLar6013kJj4X2HICt+iFLJqIgTahA/QAvSn9lwF1EEw==}
+    dev: false
 
   /@humanwhocodes/config-array/0.9.5:
     resolution: {integrity: sha512-ObyMyWxZiCu/yTisA7uzx81s40xR2fD5Cg/2Kq7G02ajkNubJf6BopgDTmDyc3U7sXpNKM8cYOw7s7Tyr+DnCw==}

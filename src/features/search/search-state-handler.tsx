@@ -1,17 +1,24 @@
 import { useAtom } from 'jotai';
 import { useMemo } from 'react';
-import { frequencyListWeightsAtom } from '../../utils/jotai';
+import {
+  frequencyListWeightsAtom,
+  searchFieldInputAtom,
+} from '../../utils/jotai';
 import { trpc } from '../../utils/trpc';
 
-function SearchStateHandler(state: { input: string }) {
+function SearchStateHandler() {
+  const [searchFieldInput, __setSearchFieldInput] =
+    useAtom(searchFieldInputAtom);
   const words = useMemo(() => {
-    return state.input
+    return searchFieldInput
       .replace(/(\(|（)(.[^()（）]*)(\)|）)/gm, ' ') // remove anything inside () or （）
       .replace(/(\s|\n|,|、|・|·)+/gm, ' ') // remove delineation chars and consolidate whitespace
       .trim()
       .split(' '); // turn into aray
-  }, [state.input]);
-  const [frequencyListWeights, _] = useAtom(frequencyListWeightsAtom);
+  }, [searchFieldInput]);
+  const [frequencyListWeights, __setFrequencyListWeights] = useAtom(
+    frequencyListWeightsAtom
+  );
 
   const vocabQuery = trpc.proxy.vocab.learnOrder.useQuery({
     words,
