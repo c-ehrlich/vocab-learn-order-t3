@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 /**
  * Frequency list weights
- * used by vocab.findMany
+ * used by vocab.learnOrder
  * and some utility functions
  */
 const frequencyListWeightsSchema = z
@@ -55,9 +55,9 @@ const frequencyListWeightsSchema = z
 export type FrequencyListWeights = z.infer<typeof frequencyListWeightsSchema>;
 
 /**
- * Input for vocab.findMany
+ * Input for vocab.learnOrder
  */
-export const findManyWordsInputSchema = z
+export const wordLearnOrderInputSchema = z
   .object({
     words: z
       .array(z.string({ invalid_type_error: 'Words must be strings' }), {
@@ -68,7 +68,7 @@ export const findManyWordsInputSchema = z
   })
   .strict('Request includes unknown key(s)');
 
-export type FindManyWordsInput = z.infer<typeof findManyWordsInputSchema>;
+export type WordLearnOrderInput = z.infer<typeof wordLearnOrderInputSchema>;
 
 /**
  * Word

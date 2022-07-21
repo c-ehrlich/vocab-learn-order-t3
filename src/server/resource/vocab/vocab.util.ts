@@ -90,3 +90,16 @@ function frequencyListValueCalc(
   if (!flValue) return 0;
   return Math.max(flWeight, 0) / flValue;
 }
+
+export function findMissingWords(
+  inputWordList: string[],
+  rankedWordResponse: Word[]
+) {
+  const rankedWordResponseWords = rankedWordResponse.map((item) => item.word);
+
+  const missingWords = inputWordList.filter((word) => {
+    return !rankedWordResponseWords.includes(word);
+  });
+
+  return missingWords;
+}
