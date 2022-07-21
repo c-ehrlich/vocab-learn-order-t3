@@ -1,6 +1,11 @@
-import { Box, Button, Grid, Link, Typography } from '@mui/material';
+// MUI imports
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+
+// other imports
 import { useAtom } from 'jotai';
-import { COLOR_LIGHT } from '../../theme/defaultTheme';
 import { searchFieldInputAtom } from '../../utils/jotai';
 import { sampleText } from '../../utils/sampleText';
 
@@ -82,7 +87,7 @@ const HelpModalContents = (props: Props) => {
       <Grid container justifyContent='center'>
         <Grid item xs={12}>
           <Typography align='center'>
-            <Link href='https://github.com/c-ehrlich/vocab-learn-order'>
+            <Link href='https://github.com/c-ehrlich/vocab-learn-order-t3'>
               view source code
             </Link>
           </Typography>
