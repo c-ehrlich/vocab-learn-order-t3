@@ -1,5 +1,5 @@
 import { t } from '../../trpc/utils';
-import { wordLearnOrderInputSchema } from './vocab.schema';
+import { Word, wordLearnOrderInputSchema } from './vocab.schema';
 import findDuplicates, {
   createCounts,
   findMissingWords,
@@ -10,15 +10,28 @@ import { findManyWords } from './vocab.service';
 export const vocabRouter = t.router({
   learnOrder: t.procedure
     .input(wordLearnOrderInputSchema)
-    .query(async ({ input }) => {
+    .query(async ({ input, ctx }) => {
       if (input.words.length > 5000) {
         throw new Error('Too many words');
       }
 
       const duplicates = findDuplicates(input.words);
-      const wordsDBRes = await findManyWords(input.words);
+      const wordsDBRes = await findManyWords({
+        prisma: ctx.prisma,
+        words: input.words,
+      });
+
+      // temp hack to fix mongo json fields
+      // TODO don't have this in the middle of the handler, do in service?
+      const myWords = wordsDBRes.map((word) => {
+        return {
+          ...word,
+          jlpt: typeof word.jlpt === 'object' ? Object(word.jlpt) : null,
+        };
+      });
+
       // TODO make sure we have a response
-      const responseWithCounts = createCounts(wordsDBRes, duplicates);
+      const responseWithCounts = createCounts(myWords, duplicates);
       const words = sortWords(responseWithCounts, input.weights);
       const notFound = findMissingWords(input.words, words);
 

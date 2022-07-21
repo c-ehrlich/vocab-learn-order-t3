@@ -84,7 +84,7 @@ function getWeightedWordRanking(
 }
 
 function frequencyListValueCalc(
-  flValue: number | undefined,
+  flValue: number | null,
   flWeight: number
 ): number {
   if (!flValue) return 0;

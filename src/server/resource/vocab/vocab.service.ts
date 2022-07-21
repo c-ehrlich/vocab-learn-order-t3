@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client';
 import { Word } from './vocab.schema';
 
 /**
@@ -7,6 +8,18 @@ import { Word } from './vocab.schema';
  * - deleteAllWords
  */
 
-export async function findManyWords(words: string[]): Promise<Word[]> {
-  return [] as Word[];
+export async function findManyWords({
+  prisma,
+  words,
+}: {
+  prisma: PrismaClient;
+  words: string[];
+}) {
+  return prisma.words.findMany({
+    where: {
+      word: {
+        in: words,
+      },
+    },
+  });
 }

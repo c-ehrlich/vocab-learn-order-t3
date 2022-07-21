@@ -84,17 +84,17 @@ export const wordSchema = z.object({
       })
     )
     .min(1, 'At least one JMDict definition required'),
-  multiplier: z.number().optional(),
-  jlpt: z.tuple([z.number(), z.string()]).array().optional(),
-  animeJDrama: z.number().optional(),
-  bccwj: z.number().optional(),
-  innocent: z.number().optional(),
-  kokugojiten: z.number().optional(),
-  narou: z.number().optional(),
-  netflix: z.number().optional(),
-  novels: z.number().optional(),
-  vn: z.number().optional(),
-  wikipedia: z.number().optional(),
+  multiplier: z.number().nullable().optional(),
+  jlpt: z.tuple([z.number(), z.string()]).array().nullable(),
+  animeJDrama: z.number().nullable(),
+  bccwj: z.number().nullable(),
+  innocent: z.number().nullable(),
+  kokugojiten: z.number().nullable(),
+  narou: z.number().nullable(),
+  netflix: z.number().nullable(),
+  novels: z.number().nullable(),
+  vn: z.number().nullable(),
+  wikipedia: z.number().nullable(),
 });
 
 export type Word = z.infer<typeof wordSchema>;
