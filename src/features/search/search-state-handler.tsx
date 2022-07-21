@@ -1,3 +1,7 @@
+// MUI imports
+import CircularProgress from '@mui/material/CircularProgress';
+
+// other imports
 import { useAtom } from 'jotai';
 import { useMemo } from 'react';
 import {
@@ -5,6 +9,7 @@ import {
   searchFieldInputAtom,
 } from '../../utils/jotai';
 import { trpc } from '../../utils/trpc';
+import SearchResultsLayout from './search-results-layout';
 
 function SearchStateHandler() {
   const [searchFieldInput, __setSearchFieldInput] =
@@ -61,7 +66,32 @@ function SearchStateHandler() {
   //   }
   // };
 
-  return <div>SearchStateHandler</div>;
+  if (vocabQuery.isError) {
+    return <div>Error: {JSON.stringify(vocabQuery.error)}</div>;
+  }
+
+  if (vocabQuery.isLoading) {
+    return (
+      <div>
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  if (!vocabQuery.data) {
+    return (
+      <div>
+        something went wrong... not loading, not error, but don't have data
+      </div>
+    );
+  }
+
+  return (
+    <SearchResultsLayout
+      words={vocabQuery.data.words}
+      notFound={vocabQuery.data.notFound}
+    />
+  );
 }
 
 export default SearchStateHandler;
