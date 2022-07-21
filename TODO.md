@@ -1,2 +1,2 @@
-[ ] I think the parsing of the JLPT field is still broken
 [ ] Build the frontend
+[ ] Remove JLPT from frontend? It's dumb...
