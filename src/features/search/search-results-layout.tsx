@@ -1,18 +1,43 @@
-import { Stack, Typography } from '@mui/material';
-// import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect } from 'react';
+// MUI imports
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import { useAtom } from 'jotai';
+import { isSearchingAtom, searchFieldInputAtom } from '../../utils/jotai';
+
+// other imports
 import { inferQueryOutput } from '../../utils/trpc';
 import WordCard from './word-card';
 import WordCardMini from './word-card-mini';
-// import { useNavigate } from 'react-router-dom';
-// import useStore from '../store';
-// import animations from '../themes/animations';
-// import WordCard from './WordCard';
-// import WordCardMini from './WordCardMini';
 
 export type SearchResultsLayoutProps = inferQueryOutput<'vocab.learnOrder'>;
 
 const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
+  const [__isSearching, setIsSearching] = useAtom(isSearchingAtom);
+  const [__searchFieldInput, setSearchFieldInput] =
+    useAtom(searchFieldInputAtom);
+
+  function doneWithSearch() {
+    setSearchFieldInput('');
+    setIsSearching(false);
+  }
+
+  if (props.words.length === 0 && props.notFound.length === 0)
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          marginTop: '64px',
+          gap: '16px',
+        }}
+      >
+        <Typography align='center'>Looks like there's nothing left</Typography>
+        <Button onClick={doneWithSearch}>Cool</Button>
+      </div>
+    );
+
   return (
     <Stack spacing={2} marginTop={2} marginBottom={4}>
       {props.words.length > 0 && (
