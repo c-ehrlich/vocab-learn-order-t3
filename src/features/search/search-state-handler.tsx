@@ -45,11 +45,7 @@ function SearchStateHandler() {
   }
 
   if (vocabQuery.isLoading) {
-    return (
-      <div>
-        <CircularProgress />
-      </div>
-    );
+    return <CircularProgress />;
   }
 
   if (!vocabQuery.data) {
