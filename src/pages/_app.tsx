@@ -20,7 +20,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         <CssBaseline />
         <Header />
         <BodyWrapper>
-          <Component {...pageProps} />;
+          <Component {...pageProps} />
         </BodyWrapper>
       </ThemeProvider>
     </>
