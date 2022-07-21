@@ -1,3 +1,8 @@
-# Create T3 App
+# Vocab Learn Order (v2)
 
-This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
+[Live Demo](https://vocab-learn-order.c-ehrlich.dev)
+
+## What is this?
+- a rebuild of https://github.com/c-ehrlich/vocab-learn-order
+- i changed the stack to T3, with tRPC v10
+- TODO move the whole readme over here
