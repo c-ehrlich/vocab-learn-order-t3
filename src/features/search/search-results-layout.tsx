@@ -2,13 +2,15 @@ import { Stack, Typography } from '@mui/material';
 // import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { inferQueryOutput } from '../../utils/trpc';
+import WordCard from './word-card';
+import WordCardMini from './word-card-mini';
 // import { useNavigate } from 'react-router-dom';
 // import useStore from '../store';
 // import animations from '../themes/animations';
 // import WordCard from './WordCard';
 // import WordCardMini from './WordCardMini';
 
-type SearchResultsLayoutProps = inferQueryOutput<'vocab.learnOrder'>;
+export type SearchResultsLayoutProps = inferQueryOutput<'vocab.learnOrder'>;
 
 const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
   return (
@@ -19,8 +21,7 @@ const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
             Words sorted by suggested Learn Order
           </Typography>
           {props.words.map((word) => (
-            <div key={word.word}>{JSON.stringify(word)}</div>
-            // <WordCard key={word.word} word={word} />
+            <WordCard key={word.word} word={word} />
           ))}
         </>
       )}
@@ -31,8 +32,7 @@ const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
             Words not found in Frequency Lists
           </Typography>
           {props.notFound.map((word) => (
-            <div key={word}>{word}</div>
-            // <WordCardMini key={word} word={word} />
+            <WordCardMini key={word} word={word} />
           ))}
         </>
       )}
