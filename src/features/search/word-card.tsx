@@ -17,6 +17,9 @@ import DoneIcon from '@mui/icons-material/Done';
 // Other imports
 import { SearchResultsLayoutProps } from './search-results-layout';
 import { useState } from 'react';
+import { trpc } from '../../utils/trpc';
+import { useAtom } from 'jotai';
+import { frequencyListWeightsAtom, searchWordsAtom } from '../../utils/jotai';
 
 type FoundWord = SearchResultsLayoutProps['words'][number];
 
@@ -38,6 +41,43 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 const WordCard = (props: Props) => {
   const [expanded, setExpanded] = useState(false);
+  const [frequencyListWeights, __setFrequencyListWeights] = useAtom(
+    frequencyListWeightsAtom
+  );
+  const [searchWords, __setSearchWords] = useAtom(searchWordsAtom);
+
+  const queryClient = trpc.useContext();
+
+  function deleteWord() {
+    const currentData = queryClient.getQueryData([
+      'vocab.learnOrder',
+      {
+        words: searchWords,
+        weights: frequencyListWeights,
+      },
+    ]);
+    if (!currentData) return;
+    const index = currentData.words.indexOf(props.word);
+    if (index === 0 || (index && index >= 0)) {
+      currentData.words = ([] as FoundWord[]).concat(
+        currentData.words.slice(0, index),
+        currentData.words.slice(index + 1)
+      );
+    }
+    queryClient.setQueryData(
+      [
+        'vocab.learnOrder',
+        {
+          words: searchWords,
+          weights: frequencyListWeights,
+        },
+      ],
+      {
+        words: currentData?.words || [],
+        notFound: currentData?.notFound || [],
+      }
+    );
+  }
 
   return (
     <Card aria-label='word-card' sx={{ maxWidth: '100%' }}>
@@ -50,18 +90,7 @@ const WordCard = (props: Props) => {
         }}
         title={props.word.word}
         action={
-          <CheckIconButton
-            aria-label='settings'
-            onClick={() => {
-              // removeWordFromServerResponse(props.word);
-              // const savedWords = serializeWords(
-              //   serverResponse!.words,
-              //   serverResponse!.notFound
-              // );
-              // console.log(savedWords);
-              // setLocalStorage('vocablist', JSON.stringify(savedWords));
-            }}
-          >
+          <CheckIconButton aria-label='settings' onClick={deleteWord}>
             <DoneIcon />
           </CheckIconButton>
         }

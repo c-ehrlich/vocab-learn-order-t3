@@ -14,5 +14,11 @@ const frequencyListWeightsAtom = atomWithStorage('frequencyLists', {
 });
 const isSearchingAtom = atom(false);
 const searchFieldInputAtom = atom('');
+const searchWordsAtom = atom([] as string[]);
 
-export { frequencyListWeightsAtom, isSearchingAtom, searchFieldInputAtom };
+export {
+  frequencyListWeightsAtom,
+  isSearchingAtom,
+  searchFieldInputAtom,
+  searchWordsAtom,
+};
