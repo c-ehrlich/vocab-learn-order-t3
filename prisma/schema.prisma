@@ -1,15 +1,25 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
     provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "mongodb"
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id String @id @default(cuid())
+model words {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    v           Int      @map("__v")
+    animeJDrama Int?
+    bccwj       Int?
+    innocent    Int?
+    jlpt        Json?
+    jmdict      String[]
+    kokugojiten Int?
+    narou       Int?
+    netflix     Int?
+    novels      Int?
+    vn          Int?
+    wikipedia   Int?
+    word        String   @unique(map: "word_1")
 }
