@@ -1,5 +1,7 @@
 // MUI imports
+import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import Stack from '@mui/material/Stack';
 
 // other imports
 import { useAtom } from 'jotai';
@@ -40,18 +42,37 @@ function SearchStateHandler() {
     }
   );
 
-  if (vocabQuery.isError) {
-    return <div>Error: {JSON.stringify(vocabQuery.error)}</div>;
-  }
+  console.log(`
+    loading: ${vocabQuery.isLoading}
+    refetching: ${vocabQuery.isRefetching}
+    error: ${vocabQuery.isError}
+    haveData: ${!!vocabQuery.data}
+  `);
 
   if (vocabQuery.isLoading) {
-    return <CircularProgress />;
+    return (
+      <Stack spacing={2} marginTop={2} marginBottom={4}>
+        <Box
+          display='flex'
+          alignItems='center'
+          justifyContent='center'
+          width='100%'
+          marginTop='32px'
+        >
+          <CircularProgress color='success' />
+        </Box>
+      </Stack>
+    );
+  }
+
+  if (vocabQuery.isError) {
+    return <div>Error: {JSON.stringify(vocabQuery.error)}</div>;
   }
 
   if (!vocabQuery.data) {
     return (
       <div>
-        something went wrong... not loading, not error, but don't have data
+        something went wrong... not loading, not error, but don&apos;t have data
       </div>
     );
   }
