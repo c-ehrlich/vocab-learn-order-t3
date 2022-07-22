@@ -1,6 +1,6 @@
 # Vocab Learn Order (v2)
 
-[Live Demo](https://vocab-learn-order.c-ehrlich.dev)
+[Live Demo](https://vocab.c-ehrlich.dev)
 
 ## What is this?
 - a rebuild of https://github.com/c-ehrlich/vocab-learn-order
