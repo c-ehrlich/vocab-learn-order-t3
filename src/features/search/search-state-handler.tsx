@@ -42,13 +42,6 @@ function SearchStateHandler() {
     }
   );
 
-  console.log(`
-    loading: ${vocabQuery.isLoading}
-    refetching: ${vocabQuery.isRefetching}
-    error: ${vocabQuery.isError}
-    haveData: ${!!vocabQuery.data}
-  `);
-
   if (vocabQuery.isLoading) {
     return (
       <Stack spacing={2} marginTop={2} marginBottom={4}>

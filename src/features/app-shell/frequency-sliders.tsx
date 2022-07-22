@@ -30,7 +30,6 @@ function Sliders() {
           </Typography>
           <Slider
             onChange={(e: Event) => {
-              console.log((e.target as HTMLInputElement).value);
               setFrequencyListWeights({
                 ...frequencyListWeights,
                 [list.name]: (e.target as HTMLInputElement).value,

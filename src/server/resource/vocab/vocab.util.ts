@@ -17,8 +17,6 @@ export function createCounts(
     }
   });
 
-  console.log(wordsWithMultiplier);
-
   return words;
 }
 
