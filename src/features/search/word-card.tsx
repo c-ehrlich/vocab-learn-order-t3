@@ -90,7 +90,7 @@ const WordCard = (props: Props) => {
         }}
         title={props.word.word}
         action={
-          <CheckIconButton aria-label='settings' onClick={deleteWord}>
+          <CheckIconButton aria-label='completed' onClick={deleteWord}>
             <DoneIcon />
           </CheckIconButton>
         }
