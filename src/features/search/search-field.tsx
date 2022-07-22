@@ -30,6 +30,15 @@ function SearchField() {
   const [badResponseSnackbarOpen, setBadResponseSnackbarOpen] = useState(false);
   const [snackbarText, setSnackbarText] = useState('');
 
+  function handleSearch() {
+    if (!searchFieldInput) {
+      setSnackbarText('Please input something');
+      setBadResponseSnackbarOpen(true);
+    } else {
+      setIsSearching(true);
+    }
+  }
+
   return (
     <>
       <Snackbar
@@ -96,7 +105,7 @@ function SearchField() {
         <Grid item xs={12} sm={6}>
           <Button
             fullWidth
-            onClick={() => setIsSearching(true)}
+            onClick={handleSearch}
             aria-label='search'
             variant='outlined'
             startIcon={<SearchIcon />}
