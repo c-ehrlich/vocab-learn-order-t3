@@ -1,11 +1,13 @@
 // MUI imports
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
 // other imports
 import { useAtom } from 'jotai';
+import { COLOR_LIGHT } from '../../theme/defaultTheme';
 import { searchFieldInputAtom } from '../../utils/jotai';
 import { sampleText } from '../../utils/sampleText';
 
@@ -14,8 +16,6 @@ type Props = {
 };
 
 const HelpModalContents = (props: Props) => {
-  // const {serverResponse } = useStore();
-
   const [_, setSearchFieldInput] = useAtom(searchFieldInputAtom);
 
   const handlePopulateTextClick = () => {
@@ -61,17 +61,17 @@ const HelpModalContents = (props: Props) => {
           </li>
         </ul>
       </Box>
-      {/* {serverResponse === null && (
-        <Grid container justifyContent='center'>
-          <Button
-            onClick={handlePopulateTextClick}
-            aria-label='Create Sample Input'
-            variant='outlined'
-            sx={{ marginY: 1, color: COLOR_LIGHT }}
-          >
-            Create Sample Input
-          </Button>
-          <Typography>
+
+      <Grid container justifyContent='center'>
+        <Button
+          onClick={handlePopulateTextClick}
+          aria-label='Create Sample Input'
+          variant='outlined'
+          sx={{ marginY: 1, color: COLOR_LIGHT }}
+        >
+          Create Sample Input
+        </Button>
+        {/* <Typography>
             Did you close the window without first saving your words?
           </Typography>
           <Button
@@ -81,9 +81,9 @@ const HelpModalContents = (props: Props) => {
             sx={{ marginY: 1, color: COLOR_LIGHT }}
           >
             Get previous words (TODO)
-          </Button>
-        </Grid>
-      )} */}
+          </Button> */}
+      </Grid>
+
       <Grid container justifyContent='center'>
         <Grid item xs={12}>
           <Typography align='center'>
