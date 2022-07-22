@@ -13,7 +13,7 @@ const frequencyListWeightsAtom = atomWithStorage('frequencyLists', {
   wikipedia: 30,
 });
 const isSearchingAtom = atom(false);
-const searchFieldInputAtom = atom('');
+const searchFieldInputAtom = atomWithStorage('searchFieldInput', '');
 const searchWordsAtom = atom([] as string[]);
 
 export {

@@ -16,23 +16,13 @@ type Props = {
 };
 
 const HelpModalContents = (props: Props) => {
-  const [_, setSearchFieldInput] = useAtom(searchFieldInputAtom);
+  const [__searchFieldInput, setSearchFieldInput] =
+    useAtom(searchFieldInputAtom);
 
   const handlePopulateTextClick = () => {
     setSearchFieldInput(sampleText);
     props.handleClose();
   };
-
-  // const handleGetPreviousWords = () => {
-  //   const words = getLocalStorageOrDefault(
-  //     'vocablist',
-  //     '(no previous input found)'
-  //   );
-  //   console.log(words);
-  //   const strippedWords = words.replaceAll('"', '');
-  //   setSearchFieldInput(strippedWords);
-  //   props.handleClose();
-  // };
 
   return (
     <>
@@ -71,17 +61,6 @@ const HelpModalContents = (props: Props) => {
         >
           Create Sample Input
         </Button>
-        {/* <Typography>
-            Did you close the window without first saving your words?
-          </Typography>
-          <Button
-            // onClick={handleGetPreviousWords}
-            aria-label='Restore previous words'
-            variant='outlined'
-            sx={{ marginY: 1, color: COLOR_LIGHT }}
-          >
-            Get previous words (TODO)
-          </Button> */}
       </Grid>
 
       <Grid container justifyContent='center'>

@@ -49,7 +49,7 @@ function SearchField() {
       <InputTextField
         lang='ja'
         id='outlined-multiline-static'
-        label='Paste words here'
+        placeholder='Paste words here'
         multiline
         rows={16}
         value={searchFieldInput}
