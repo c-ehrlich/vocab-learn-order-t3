@@ -33,7 +33,9 @@ const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
           gap: '16px',
         }}
       >
-        <Typography align='center'>Looks like there's nothing left</Typography>
+        <Typography align='center'>
+          Looks like there&apos;s nothing left
+        </Typography>
         <Button onClick={doneWithSearch}>Cool</Button>
       </div>
     );
