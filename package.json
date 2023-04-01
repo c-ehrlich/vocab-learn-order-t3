@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "test": "vitest",
+    "test:once": "vitest run"
   },
   "dependencies": {
     "@babel/core": "7",
@@ -38,7 +40,10 @@
     "@types/react-dom": "18.0.5",
     "eslint": "8.18.0",
     "eslint-config-next": "12.2.1",
+    "prettier": "^2.8.7",
     "prisma": "^4.1.0",
-    "typescript": "4.7.4"
+    "typescript": "4.7.4",
+    "vite": "^4.2.1",
+    "vitest": "^0.29.8"
   }
 }

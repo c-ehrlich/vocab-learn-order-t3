@@ -17,12 +17,10 @@ export function createCounts(
     }
   });
 
-  return words;
+  return wordsWithMultiplier;
 }
 
-// TODO use a map for this
-// TODO don't use ! types
-export default function findDuplicates(words: string[]): DuplicateWordList {
+export function findDuplicates(words: string[]): DuplicateWordList {
   let duplicates: DuplicateWordList = [];
 
   // create list of how often each word exists
@@ -52,15 +50,12 @@ export function sortWords(
   words: Word[],
   weights: FrequencyListWeights
 ): Word[] {
-  return words.sort(compareWordForSorting);
-
-  // TODO refactor so compareWordForSorting doesn't have to live inside sortWords?
-  function compareWordForSorting(a: Word, b: Word): number {
+  return words.sort((a, b) => {
     return getWeightedWordRanking(a, weights) <
       getWeightedWordRanking(b, weights)
       ? 1
       : -1;
-  }
+  });
 }
 
 function getWeightedWordRanking(
@@ -93,11 +88,9 @@ export function findMissingWords(
   inputWordList: string[],
   rankedWordResponse: Word[]
 ) {
-  const rankedWordResponseWords = rankedWordResponse.map((item) => item.word);
-
+  const foundWordsSet = new Set(rankedWordResponse.map((item) => item.word));
   const missingWords = inputWordList.filter((word) => {
-    return !rankedWordResponseWords.includes(word);
+    return !foundWordsSet.has(word);
   });
-
   return missingWords;
 }

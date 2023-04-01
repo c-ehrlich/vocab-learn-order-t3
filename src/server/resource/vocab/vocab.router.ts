@@ -1,7 +1,8 @@
 import { t } from '../../trpc/utils';
 import { Word, wordLearnOrderInputSchema } from './vocab.schema';
-import findDuplicates, {
+import {
   createCounts,
+  findDuplicates,
   findMissingWords,
   sortWords,
 } from './vocab.util';
@@ -34,6 +35,8 @@ export const vocabRouter = t.router({
       const responseWithCounts = createCounts(myWords, duplicates);
       const words = sortWords(responseWithCounts, input.weights);
       const notFound = findMissingWords(input.words, words);
+
+      console.log(input.words);
 
       return { words, notFound };
     }),
