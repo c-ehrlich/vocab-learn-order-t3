@@ -1,15 +1,15 @@
 // MUI imports
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
 
 // other imports
-import { useAtom } from 'jotai';
-import { COLOR_LIGHT } from '../../theme/defaultTheme';
-import { searchFieldInputAtom } from '../../utils/jotai';
-import { sampleText } from '../../utils/sampleText';
+import { useAtom } from "jotai";
+import { COLOR_LIGHT } from "../../theme/defaultTheme";
+import { searchFieldInputAtom } from "../../utils/jotai";
+import { sampleText } from "../../utils/sampleText";
 
 type Props = {
   handleClose: () => void;
@@ -42,31 +42,31 @@ const HelpModalContents = (props: Props) => {
           </li>
           <li>
             Click <strong>Search</strong> to see your words, sorted by optimal
-            learn order. Use{' '}
-            <Link href='https://chrome.google.com/webstore/detail/yomichan/ogmnaimimemjmbakcfefmnahgdfhfami'>
+            learn order. Use{" "}
+            <Link href="https://chrome.google.com/webstore/detail/yomichan/ogmnaimimemjmbakcfefmnahgdfhfami">
               Yomichan
-            </Link>{' '}
-            to create <Link href='https://apps.ankiweb.net/'>Anki</Link> cards,
+            </Link>{" "}
+            to create <Link href="https://apps.ankiweb.net/">Anki</Link> cards,
             and get sample sentences from YouGlish or ImmersionKit.
           </li>
         </ul>
       </Box>
 
-      <Grid container justifyContent='center'>
+      <Grid container justifyContent="center">
         <Button
           onClick={handlePopulateTextClick}
-          aria-label='Create Sample Input'
-          variant='outlined'
+          aria-label="Create Sample Input"
+          variant="outlined"
           sx={{ marginY: 1, color: COLOR_LIGHT }}
         >
           Create Sample Input
         </Button>
       </Grid>
 
-      <Grid container justifyContent='center'>
+      <Grid container justifyContent="center">
         <Grid item xs={12}>
-          <Typography align='center'>
-            <Link href='https://github.com/c-ehrlich/vocab-learn-order-t3'>
+          <Typography align="center">
+            <Link href="https://github.com/c-ehrlich/vocab-learn-order-t3">
               view source code
             </Link>
           </Typography>

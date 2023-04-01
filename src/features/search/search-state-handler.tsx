@@ -1,18 +1,18 @@
 // MUI imports
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import Stack from '@mui/material/Stack';
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import Stack from "@mui/material/Stack";
 
 // other imports
-import { useAtom } from 'jotai';
-import { useMemo } from 'react';
+import { useAtom } from "jotai";
+import { useMemo } from "react";
 import {
   frequencyListWeightsAtom,
   searchFieldInputAtom,
   searchWordsAtom,
-} from '../../utils/jotai';
-import { trpc } from '../../utils/trpc';
-import SearchResultsLayout from './search-results-layout';
+} from "../../utils/jotai";
+import { trpc } from "../../utils/trpc";
+import SearchResultsLayout from "./search-results-layout";
 
 function SearchStateHandler() {
   const [searchFieldInput, __setSearchFieldInput] =
@@ -21,10 +21,10 @@ function SearchStateHandler() {
 
   const words = useMemo(() => {
     return searchFieldInput
-      .replace(/(\(|（)(.[^()（）]*)(\)|）)/gm, ' ') // remove anything inside () or （）
-      .replace(/(\s|\n|,|、|・|·)+/gm, ' ') // remove delineation chars and consolidate whitespace
+      .replace(/(\(|（)(.[^()（）]*)(\)|）)/gm, " ") // remove anything inside () or （）
+      .replace(/(\s|\n|,|、|・|·)+/gm, " ") // remove delineation chars and consolidate whitespace
       .trim()
-      .split(' '); // turn into aray
+      .split(" "); // turn into aray
   }, [searchFieldInput]);
   setSearchWords(words);
 
@@ -46,13 +46,13 @@ function SearchStateHandler() {
     return (
       <Stack spacing={2} marginTop={2} marginBottom={4}>
         <Box
-          display='flex'
-          alignItems='center'
-          justifyContent='center'
-          width='100%'
-          marginTop='32px'
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          width="100%"
+          marginTop="32px"
         >
-          <CircularProgress color='success' />
+          <CircularProgress color="success" />
         </Box>
       </Stack>
     );

@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { Word } from './vocab.schema';
+import { PrismaClient } from "@prisma/client";
+import { Word } from "./vocab.schema";
 
 /**
  * TO IMPLEMENT IF WE WANT THE ADMIN STUFF TO WORK FROM TRPC

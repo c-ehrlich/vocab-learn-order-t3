@@ -1,4 +1,4 @@
-import { DuplicateWordList, FrequencyListWeights, Word } from './vocab.schema';
+import { DuplicateWordList, FrequencyListWeights, Word } from "./vocab.schema";
 
 // TODO use a map for this
 // TODO don't use ! types

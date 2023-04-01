@@ -1,19 +1,19 @@
-import { createRouter, publicProcedure } from '../../trpc/utils';
-import { Word, wordLearnOrderInputSchema } from './vocab.schema';
+import { createRouter, publicProcedure } from "../../trpc/utils";
+import { Word, wordLearnOrderInputSchema } from "./vocab.schema";
 import {
   createCounts,
   findDuplicates,
   findMissingWords,
   sortWords,
-} from './vocab.util';
-import { findManyWords } from './vocab.service';
+} from "./vocab.util";
+import { findManyWords } from "./vocab.service";
 
 export const vocabRouter = createRouter({
   learnOrder: publicProcedure
     .input(wordLearnOrderInputSchema)
     .query(async ({ input, ctx }) => {
       if (input.words.length > 5000) {
-        throw new Error('Too many words');
+        throw new Error("Too many words");
       }
 
       const duplicates = findDuplicates(input.words);
@@ -27,7 +27,7 @@ export const vocabRouter = createRouter({
       const myWords = wordsDBRes.map((word) => {
         return {
           ...word,
-          jlpt: typeof word.jlpt === 'object' ? Object(word.jlpt) : null,
+          jlpt: typeof word.jlpt === "object" ? Object(word.jlpt) : null,
         };
       });
 

@@ -1,5 +1,5 @@
-import { vocabRouter } from '../../resource/vocab/vocab.router';
-import { createRouter } from '../utils';
+import { vocabRouter } from "../../resource/vocab/vocab.router";
+import { createRouter } from "../utils";
 
 export const appRouter = createRouter({
   vocab: vocabRouter,

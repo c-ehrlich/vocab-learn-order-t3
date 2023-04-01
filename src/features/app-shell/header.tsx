@@ -1,31 +1,31 @@
 // MUI imports
-import Alert from '@mui/material/Alert';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import Snackbar from '@mui/material/Snackbar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import HelpIcon from '@mui/icons-material/Help';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import SettingsIcon from '@mui/icons-material/Settings';
+import Alert from "@mui/material/Alert";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import Snackbar from "@mui/material/Snackbar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import HelpIcon from "@mui/icons-material/Help";
+import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 // Other imports
-import { useAtom } from 'jotai';
+import { useAtom } from "jotai";
 import {
   frequencyListWeightsAtom,
   isSearchingAtom,
   searchWordsAtom,
-} from '../../utils/jotai';
-import { useState } from 'react';
-import Sliders from './frequency-sliders';
-import MaterialModal from './material-modal';
-import HelpModalContents from './help-modal-contents';
-import { COLOR_LIGHT } from '../../theme/defaultTheme';
-import { trpc } from '../../utils/trpc';
+} from "../../utils/jotai";
+import { useState } from "react";
+import Sliders from "./frequency-sliders";
+import MaterialModal from "./material-modal";
+import HelpModalContents from "./help-modal-contents";
+import { COLOR_LIGHT } from "../../theme/defaultTheme";
+import { trpc } from "../../utils/trpc";
 
 function Header() {
   const [isSearching, setIsSearching] = useAtom(isSearchingAtom);
@@ -36,8 +36,7 @@ function Header() {
 
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false);
-  const [failureSnackbarOpen, setFailureSnackbarOpen] =
-    useState<boolean>(false);
+  const [failureSnackbarOpen, setFailureSnackbarOpen] = useState(false);
   const [anchorElFrequency, setAnchorElFrequency] =
     useState<null | HTMLElement>(null);
 
@@ -54,7 +53,7 @@ function Header() {
 
   async function saveRemainingWordsToClipboard() {
     const query = queryClient.getQueryData([
-      'vocab.learnOrder',
+      "vocab.learnOrder",
       {
         words: searchWords,
         weights: frequencyListWeights,
@@ -70,7 +69,7 @@ function Header() {
         }
       });
       query.notFound.forEach((word) => words.push(word));
-      const text = words.join(', ');
+      const text = words.join(", ");
       await navigator.clipboard.writeText(text);
       if ((await navigator.clipboard.readText()) === text) {
         temporarilyOpenSnackbar(setSuccessSnackbarOpen);
@@ -81,37 +80,37 @@ function Header() {
   }
 
   return (
-    <AppBar position='sticky'>
-      <Container maxWidth='md' disableGutters>
+    <AppBar position="sticky">
+      <Container maxWidth="md" disableGutters>
         <Toolbar>
           <Box sx={{ flexGrow: 0 }}>
             {isSearching ? (
               <IconButton
-                aria-label='back'
+                aria-label="back"
                 onClick={() => setIsSearching(false)}
               >
-                <ArrowBackIosNewIcon fontSize='large' />
+                <ArrowBackIosNewIcon fontSize="large" />
               </IconButton>
             ) : (
               <IconButton
-                aria-label='settings'
+                aria-label="settings"
                 onClick={(e) => setAnchorElFrequency(e.currentTarget)}
               >
-                <SettingsIcon fontSize='large' />
+                <SettingsIcon fontSize="large" />
               </IconButton>
             )}
             <Menu
-              sx={{ mt: '45px' }}
-              id='menu-appbar'
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
               anchorEl={anchorElFrequency}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElFrequency)}
               onClose={() => setAnchorElFrequency(null)}
@@ -120,35 +119,35 @@ function Header() {
             </Menu>
           </Box>
           <Typography
-            fontFamily='EB Garamond'
-            fontWeight='400'
+            fontFamily="EB Garamond"
+            fontWeight="400"
             letterSpacing={-0.5}
             sx={{
               flexGrow: 1,
-              display: 'flex',
+              display: "flex",
               color: COLOR_LIGHT,
-              fontSize: '38px',
+              fontSize: "38px",
               // TODO size 28 at 480px or less (is this a material breakpoint?)
             }}
-            justifyContent='center'
-            textAlign='center'
+            justifyContent="center"
+            textAlign="center"
           >
             vocab learn order
           </Typography>
           <Box sx={{ flexGrow: 0 }}>
             {isSearching ? (
               <IconButton
-                aria-label='save'
+                aria-label="save"
                 onClick={saveRemainingWordsToClipboard}
               >
-                <SaveAltIcon fontSize='large' />
+                <SaveAltIcon fontSize="large" />
               </IconButton>
             ) : (
               <IconButton
-                aria-label='help'
+                aria-label="help"
                 onClick={() => setHelpModalOpen(true)}
               >
-                <HelpIcon fontSize='large' />
+                <HelpIcon fontSize="large" />
               </IconButton>
             )}
           </Box>
@@ -161,20 +160,20 @@ function Header() {
         </Toolbar>
       </Container>
       <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={successSnackbarOpen}
         onClose={() => setSuccessSnackbarOpen(false)}
-        sx={{ width: '100%' }}
+        sx={{ width: "100%" }}
       >
-        <Alert severity='success'>Successfully copied to clipboard</Alert>
+        <Alert severity="success">Successfully copied to clipboard</Alert>
       </Snackbar>
       <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={failureSnackbarOpen}
         onClose={() => setFailureSnackbarOpen(false)}
-        sx={{ width: '100%' }}
+        sx={{ width: "100%" }}
       >
-        <Alert severity='warning'>
+        <Alert severity="warning">
           Could not copy to clipboard. Please copy manually
         </Alert>
       </Snackbar>

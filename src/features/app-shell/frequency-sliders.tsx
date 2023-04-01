@@ -1,19 +1,19 @@
-import { Box, Slider, Typography } from '@mui/material';
-import { useAtom } from 'jotai';
-import { FrequencyListWeights } from '../../server/resource/vocab/vocab.schema';
-import { frequencyListWeightsAtom } from '../../utils/jotai';
-import ValueLabelComponent from './value-label';
+import { Box, Slider, Typography } from "@mui/material";
+import { useAtom } from "jotai";
+import { FrequencyListWeights } from "../../server/resource/vocab/vocab.schema";
+import { frequencyListWeightsAtom } from "../../utils/jotai";
+import ValueLabelComponent from "./value-label";
 
 const frequencyLists = [
-  { name: 'animeJDrama', title: 'Anime & J-Drama' },
-  { name: 'bccwj', title: 'BCCWJ' },
-  { name: 'innocent', title: 'Innocent Corpus' },
-  { name: 'kokugojiten', title: '国語辞典' },
-  { name: 'narou', title: 'Narou' },
-  { name: 'netflix', title: 'Netflix' },
-  { name: 'novels', title: 'Novels' },
-  { name: 'vn', title: 'Visual Novels' },
-  { name: 'wikipedia', title: 'Wikipedia' },
+  { name: "animeJDrama", title: "Anime & J-Drama" },
+  { name: "bccwj", title: "BCCWJ" },
+  { name: "innocent", title: "Innocent Corpus" },
+  { name: "kokugojiten", title: "国語辞典" },
+  { name: "narou", title: "Narou" },
+  { name: "netflix", title: "Netflix" },
+  { name: "novels", title: "Novels" },
+  { name: "vn", title: "Visual Novels" },
+  { name: "wikipedia", title: "Wikipedia" },
 ];
 
 function Sliders() {
@@ -25,7 +25,7 @@ function Sliders() {
     <Box sx={{ paddingX: 4, paddingY: 2 }}>
       {frequencyLists.map((list) => (
         <Box key={list.name}>
-          <Typography lang='ja' gutterBottom>
+          <Typography lang="ja" gutterBottom>
             {list.title}
           </Typography>
           <Slider
@@ -35,11 +35,11 @@ function Sliders() {
                 [list.name]: (e.target as HTMLInputElement).value,
               });
             }}
-            valueLabelDisplay='auto'
+            valueLabelDisplay="auto"
             components={{
               ValueLabel: ValueLabelComponent,
             }}
-            aria-label='custom thumb label'
+            aria-label="custom thumb label"
             value={
               frequencyListWeights[list.name as keyof FrequencyListWeights]
             }

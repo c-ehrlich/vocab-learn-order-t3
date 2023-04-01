@@ -1,16 +1,16 @@
 // MUI imports
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { useAtom } from 'jotai';
-import { isSearchingAtom, searchFieldInputAtom } from '../../utils/jotai';
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { useAtom } from "jotai";
+import { isSearchingAtom, searchFieldInputAtom } from "../../utils/jotai";
 
 // other imports
-import { inferQueryOutput } from '../../utils/trpc';
-import WordCard from './word-card';
-import WordCardMini from './word-card-mini';
+import { inferQueryOutput } from "../../utils/trpc";
+import WordCard from "./word-card";
+import WordCardMini from "./word-card-mini";
 
-export type SearchResultsLayoutProps = inferQueryOutput<'vocab.learnOrder'>;
+export type SearchResultsLayoutProps = inferQueryOutput<"vocab.learnOrder">;
 
 const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
   const [__isSearching, setIsSearching] = useAtom(isSearchingAtom);
@@ -18,7 +18,7 @@ const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
     useAtom(searchFieldInputAtom);
 
   function doneWithSearch() {
-    setSearchFieldInput('');
+    setSearchFieldInput("");
     setIsSearching(false);
   }
 
@@ -26,14 +26,14 @@ const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
     return (
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          marginTop: '64px',
-          gap: '16px',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: "64px",
+          gap: "16px",
         }}
       >
-        <Typography align='center'>
+        <Typography align="center">
           Looks like there&apos;s nothing left
         </Typography>
         <Button onClick={doneWithSearch}>Cool</Button>
@@ -44,7 +44,7 @@ const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
     <Stack spacing={2} marginTop={2} marginBottom={4}>
       {props.words.length > 0 && (
         <>
-          <Typography key='header-words' variant='h5'>
+          <Typography key="header-words" variant="h5">
             Words sorted by suggested Learn Order
           </Typography>
           {props.words.map((word) => (
@@ -55,7 +55,7 @@ const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
 
       {props.notFound.length > 0 && (
         <>
-          <Typography key='header-notfound' variant='h5'>
+          <Typography key="header-notfound" variant="h5">
             Words not found in Frequency Lists
           </Typography>
           {props.notFound.map((word) => (

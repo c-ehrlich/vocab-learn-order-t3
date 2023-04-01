@@ -1,6 +1,6 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   interface Theme {
     status: {
       danger: string;
@@ -14,12 +14,12 @@ declare module '@mui/material/styles' {
   }
 }
 
-export const COLOR_LIGHT = '#f3ede7';
-export const COLOR_MID = '#f4e3d1';
-export const COLOR_NOT_QUITE_DARK = '#7E997A';
-export const COLOR_DARK = '#607262';
-export const COLOR_VERY_DARK = '#505d51';
-const DONT_USE_THIS_COLOR = '#ff0000';
+export const COLOR_LIGHT = "#f3ede7";
+export const COLOR_MID = "#f4e3d1";
+export const COLOR_NOT_QUITE_DARK = "#7E997A";
+export const COLOR_DARK = "#607262";
+export const COLOR_VERY_DARK = "#505d51";
+const DONT_USE_THIS_COLOR = "#ff0000";
 
 export const defaultTheme = createTheme({
   palette: {
@@ -44,18 +44,18 @@ export const defaultTheme = createTheme({
   },
   typography: {
     fontFamily: [
-      'Poppins',
-      'Roboto',
+      "Poppins",
+      "Roboto",
       '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '-apple-system',
-      'BlinkMacSystemFont',
+      "Arial",
+      "sans-serif",
+      "-apple-system",
+      "BlinkMacSystemFont",
       '"Segoe UI"',
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
+    ].join(","),
   },
   components: {
     MuiAppBar: {
@@ -68,12 +68,12 @@ export const defaultTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          fontFamily: 'Archivo',
+          fontFamily: "Archivo",
           fontWeight: 700,
           backgroundColor: COLOR_DARK,
           color: COLOR_LIGHT,
           borderColor: COLOR_DARK,
-          '&:hover': {
+          "&:hover": {
             backgroundColor: COLOR_VERY_DARK,
             borderColor: COLOR_VERY_DARK,
           },

@@ -1,7 +1,7 @@
-import { atom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
+import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
-const frequencyListWeightsAtom = atomWithStorage('frequencyLists', {
+const frequencyListWeightsAtom = atomWithStorage("frequencyLists", {
   animeJDrama: 40,
   bccwj: 30,
   innocent: 30,
@@ -13,7 +13,7 @@ const frequencyListWeightsAtom = atomWithStorage('frequencyLists', {
   wikipedia: 30,
 });
 const isSearchingAtom = atom(false);
-const searchFieldInputAtom = atomWithStorage('searchFieldInput', '');
+const searchFieldInputAtom = atomWithStorage("searchFieldInput", "");
 const searchWordsAtom = atom([] as string[]);
 
 export {
