@@ -52,13 +52,10 @@ function Header() {
   };
 
   async function saveRemainingWordsToClipboard() {
-    const query = queryClient.getQueryData([
-      "vocab.learnOrder",
-      {
-        words: searchWords,
-        weights: frequencyListWeights,
-      },
-    ]);
+    const query = queryClient.vocab.learnOrder.getData({
+      words: searchWords,
+      weights: frequencyListWeights,
+    });
     if (query) {
       let words = [] as string[];
 

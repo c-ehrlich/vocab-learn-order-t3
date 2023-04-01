@@ -49,13 +49,10 @@ const WordCard = (props: Props) => {
   const queryClient = trpc.useContext();
 
   function deleteWord() {
-    const currentData = queryClient.getQueryData([
-      "vocab.learnOrder",
-      {
-        words: searchWords,
-        weights: frequencyListWeights,
-      },
-    ]);
+    const currentData = queryClient.vocab.learnOrder.getData({
+      words: searchWords,
+      weights: frequencyListWeights,
+    });
     if (!currentData) return;
     const index = currentData.words.indexOf(props.word);
     if (index === 0 || (index && index >= 0)) {
@@ -64,14 +61,11 @@ const WordCard = (props: Props) => {
         currentData.words.slice(index + 1)
       );
     }
-    queryClient.setQueryData(
-      [
-        "vocab.learnOrder",
-        {
-          words: searchWords,
-          weights: frequencyListWeights,
-        },
-      ],
+    queryClient.vocab.learnOrder.setData(
+      {
+        words: searchWords,
+        weights: frequencyListWeights,
+      },
       {
         words: currentData?.words || [],
         notFound: currentData?.notFound || [],

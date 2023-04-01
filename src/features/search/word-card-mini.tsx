@@ -26,13 +26,10 @@ function WordCardMini(props: { word: NotFoundWord }) {
   const queryClient = trpc.useContext();
 
   function deleteNotFoundWord() {
-    const currentData = queryClient.getQueryData([
-      "vocab.learnOrder",
-      {
-        words: searchWords,
-        weights: frequencyListWeights,
-      },
-    ]);
+    const currentData = queryClient.vocab.learnOrder.getData({
+      words: searchWords,
+      weights: frequencyListWeights,
+    });
     if (!currentData) return;
     const index = currentData.notFound.indexOf(props.word);
     if (index === 0 || (index && index >= 0)) {
@@ -41,14 +38,11 @@ function WordCardMini(props: { word: NotFoundWord }) {
         currentData.notFound.slice(index + 1)
       );
     }
-    queryClient.setQueryData(
-      [
-        "vocab.learnOrder",
-        {
-          words: searchWords,
-          weights: frequencyListWeights,
-        },
-      ],
+    queryClient.vocab.learnOrder.setData(
+      {
+        words: searchWords,
+        weights: frequencyListWeights,
+      },
       {
         words: currentData?.words || [],
         notFound: currentData?.notFound || [],
