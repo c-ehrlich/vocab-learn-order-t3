@@ -1,5 +1,5 @@
 import { createTRPCNext } from "@trpc/next";
-import type { inferProcedureInput, inferProcedureOutput } from "@trpc/server";
+import type { inferProcedureInput, inferProcedureOutput, inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import type { AppRouter } from "../server/trpc/router";
 import superjson from "superjson";
 import { httpBatchLink } from "@trpc/client";
@@ -24,3 +24,6 @@ export const trpc = createTRPCNext<AppRouter>({
   },
   ssr: false,
 });
+
+export type RouterInput = inferRouterInputs<AppRouter>;
+export type RouterOutput = inferRouterOutputs<AppRouter>;

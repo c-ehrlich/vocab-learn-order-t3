@@ -6,11 +6,11 @@ import { useAtom } from "jotai";
 import { isSearchingAtom, searchFieldInputAtom } from "../../utils/jotai";
 
 // other imports
-import { inferQueryOutput } from "../../utils/trpc";
 import WordCard from "./word-card";
 import WordCardMini from "./word-card-mini";
+import { RouterOutput } from "../../utils/trpc";
 
-export type SearchResultsLayoutProps = inferQueryOutput<"vocab.learnOrder">;
+export type SearchResultsLayoutProps = RouterOutput["vocab"]["learnOrder"];
 
 const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
   const [__isSearching, setIsSearching] = useAtom(isSearchingAtom);

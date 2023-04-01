@@ -32,7 +32,7 @@ function SearchStateHandler() {
     frequencyListWeightsAtom
   );
 
-  const vocabQuery = trpc.proxy.vocab.learnOrder.useQuery(
+  const vocabQuery = trpc.vocab.learnOrder.useQuery(
     {
       words,
       weights: frequencyListWeights,
