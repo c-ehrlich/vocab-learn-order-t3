@@ -1,11 +1,6 @@
 import { createRouter, publicProcedure } from "../../trpc/utils";
-import { Word, wordLearnOrderInputSchema } from "./vocab.schema";
-import {
-  createCounts,
-  findDuplicates,
-  findMissingWords,
-  sortWords,
-} from "./vocab.util";
+import { FrequencyListWeights, Word, wordLearnOrderInputSchema } from "./vocab.schema";
+import { getWeightedWordRanking } from "./vocab.util";
 import { findManyWords } from "./vocab.service";
 
 export const vocabRouter = createRouter({
@@ -16,28 +11,49 @@ export const vocabRouter = createRouter({
         throw new Error("Too many words");
       }
 
-      const duplicates = findDuplicates(input.words);
-      const wordsDBRes = await findManyWords({
+      const wordsFromDb = await findManyWords({
         prisma: ctx.prisma,
         words: input.words,
       });
 
-      // temp hack to fix mongo json fields
-      // TODO don't have this in the middle of the handler, do in service?
-      const myWords = wordsDBRes.map((word) => {
-        return {
-          ...word,
-          jlpt: typeof word.jlpt === "object" ? Object(word.jlpt) : null,
-        };
+      const { sortedWords, wordsNotFound } = doWordLogic({
+        wordsFromDb,
+        input: input.words,
+        weights: input.weights
       });
 
-      // TODO make sure we have a response
-      const responseWithCounts = createCounts(myWords, duplicates);
-      const words = sortWords(responseWithCounts, input.weights);
-      const notFound = findMissingWords(input.words, words);
-
-      console.log(input.words);
-
-      return { words, notFound };
+      return { words: sortedWords, notFound: wordsNotFound };
     }),
 });
+
+function doWordLogic({ wordsFromDb, input, weights }: {
+  wordsFromDb: Word[],
+  input: string[],
+  weights: FrequencyListWeights
+}) {
+  const wordsMap = new Map<string, Word & { count: number, weight: number }>();
+
+  wordsFromDb.forEach((word) => {
+    if (!wordsMap.has(word.word)) {
+      wordsMap.set(word.word, { ...word, count: 1, weight: 0 });
+    } else {
+      const existingWord = wordsMap.get(word.word);
+      wordsMap.set(word.word, {
+        ...existingWord!,
+        count: existingWord!.count + 1,
+      });
+    }
+
+    for (let value of wordsMap.values()) {
+      value.weight = getWeightedWordRanking(value, weights)
+    }
+  });
+
+  const sortedWords = Array.from(wordsMap.values()).sort((a, b) => {
+    return a.weight < b.weight ? 1 : -1;
+  });
+
+  const wordsNotFound = input.filter((word) => !wordsMap.has(word));
+
+  return { sortedWords, wordsNotFound }
+}
