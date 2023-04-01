@@ -1,8 +1,7 @@
-// src/server/router/index.ts
-import { t } from '../utils';
 import { vocabRouter } from '../../resource/vocab/vocab.router';
+import { createRouter } from '../utils';
 
-export const appRouter = t.router({
+export const appRouter = createRouter({
   vocab: vocabRouter,
 });
 

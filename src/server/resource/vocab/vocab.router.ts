@@ -1,4 +1,4 @@
-import { t } from '../../trpc/utils';
+import { createRouter, publicProcedure } from '../../trpc/utils';
 import { Word, wordLearnOrderInputSchema } from './vocab.schema';
 import {
   createCounts,
@@ -8,8 +8,8 @@ import {
 } from './vocab.util';
 import { findManyWords } from './vocab.service';
 
-export const vocabRouter = t.router({
-  learnOrder: t.procedure
+export const vocabRouter = createRouter({
+  learnOrder: publicProcedure
     .input(wordLearnOrderInputSchema)
     .query(async ({ input, ctx }) => {
       if (input.words.length > 5000) {
