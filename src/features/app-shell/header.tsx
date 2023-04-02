@@ -65,14 +65,11 @@ function Header() {
           words.push(word.word);
         }
       });
+
       query.notFound.forEach((word) => words.push(word));
       const text = words.join(", ");
       await navigator.clipboard.writeText(text);
-      if ((await navigator.clipboard.readText()) === text) {
-        temporarilyOpenSnackbar(setSuccessSnackbarOpen);
-      } else {
-        temporarilyOpenSnackbar(setFailureSnackbarOpen);
-      }
+      temporarilyOpenSnackbar(setSuccessSnackbarOpen);
     }
   }
 
