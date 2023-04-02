@@ -36,7 +36,6 @@ function Header() {
 
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false);
-  const [failureSnackbarOpen, setFailureSnackbarOpen] = useState(false);
   const [anchorElFrequency, setAnchorElFrequency] =
     useState<null | HTMLElement>(null);
 
@@ -160,16 +159,6 @@ function Header() {
         sx={{ width: "100%" }}
       >
         <Alert severity="success">Successfully copied to clipboard</Alert>
-      </Snackbar>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={failureSnackbarOpen}
-        onClose={() => setFailureSnackbarOpen(false)}
-        sx={{ width: "100%" }}
-      >
-        <Alert severity="warning">
-          Could not copy to clipboard. Please copy manually
-        </Alert>
       </Snackbar>
     </AppBar>
   );
