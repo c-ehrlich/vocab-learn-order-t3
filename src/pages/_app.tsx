@@ -6,6 +6,7 @@ import { defaultTheme } from "../theme/defaultTheme";
 import Header from "../features/app-shell/header";
 import Head from "next/head";
 import BodyWrapper from "../features/app-shell/body-wrapper";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
@@ -23,6 +24,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         <Header />
         <BodyWrapper>
           <Component {...pageProps} />
+          <ReactQueryDevtools initialIsOpen={false} />
         </BodyWrapper>
       </ThemeProvider>
     </>
