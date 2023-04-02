@@ -1,7 +1,8 @@
+import { ProcessedWord } from "./vocab.router";
 import { FrequencyListWeights, Word } from "./vocab.schema";
 
 export function getWeightedWordRanking(
-  word: Word,
+  word: ProcessedWord,
   weights: FrequencyListWeights
 ): number {
   const baseValue =
@@ -15,7 +16,7 @@ export function getWeightedWordRanking(
     frequencyListValueCalc(word.vn, weights.vn) +
     frequencyListValueCalc(word.wikipedia, weights.wikipedia);
 
-  return baseValue * (word.multiplier || 1);
+  return baseValue * (word.count || 1);
 }
 
 function frequencyListValueCalc(

@@ -26,28 +26,30 @@ export const vocabRouter = createRouter({
     }),
 });
 
+export type ProcessedWord = Word & { count: number, weight: number };
+
 function doWordLogic({ wordsFromDb, input, weights }: {
   wordsFromDb: Word[],
   input: string[],
   weights: FrequencyListWeights
 }) {
-  const wordsMap = new Map<string, Word & { count: number, weight: number }>();
+  const wordsMap = new Map<string, ProcessedWord>();
 
   wordsFromDb.forEach((word) => {
     if (!wordsMap.has(word.word)) {
-      wordsMap.set(word.word, { ...word, count: 1, weight: 0 });
-    } else {
-      const existingWord = wordsMap.get(word.word);
-      wordsMap.set(word.word, {
-        ...existingWord!,
-        count: existingWord!.count + 1,
-      });
-    }
-
-    for (let value of wordsMap.values()) {
-      value.weight = getWeightedWordRanking(value, weights)
+      wordsMap.set(word.word, { ...word, count: 0, weight: 0 });
     }
   });
+
+  input.forEach(w => {
+    if (wordsMap.has(w)) {
+      wordsMap.get(w)!.count++;
+    }
+  })
+
+  for (let value of wordsMap.values()) {
+    value.weight = getWeightedWordRanking(value, weights)
+  }
 
   const sortedWords = Array.from(wordsMap.values()).sort((a, b) => {
     return a.weight < b.weight ? 1 : -1;
