@@ -53,7 +53,7 @@ const WordCard = (props: Props) => {
     if (!currentData) return;
 
     const index = currentData.words.findIndex((w) => w === props.word);
-    if (index && index >= 0) {
+    if (index >= 0) {
       const newData = {
         ...currentData,
         words: ([] as FoundWord[]).concat(

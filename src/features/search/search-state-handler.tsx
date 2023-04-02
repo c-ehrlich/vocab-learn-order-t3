@@ -39,6 +39,7 @@ function SearchStateHandler() {
     },
     {
       staleTime: Infinity,
+      refetchOnWindowFocus: false,
     }
   );
 

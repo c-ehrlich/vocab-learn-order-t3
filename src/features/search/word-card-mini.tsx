@@ -29,7 +29,7 @@ function WordCardMini(props: { word: NotFoundWord }) {
     if (!currentData) return;
 
     const index = currentData.notFound.findIndex((w) => w === props.word);
-    if (index && index >= 0) {
+    if (index >= 0) {
       const newData = {
         ...currentData,
         notFound: ([] as string[]).concat(
