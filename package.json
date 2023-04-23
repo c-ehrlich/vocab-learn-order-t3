@@ -21,7 +21,7 @@
     "@fontsource/roboto-serif": "^4.5.6",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.1",
-    "@prisma/client": "^4.1.0",
+    "@prisma/client": "^4.12.0",
     "@tanstack/react-query": "^4.28.0",
     "@tanstack/react-query-devtools": "^4.28.0",
     "@trpc/client": "^10.18.0",
@@ -42,7 +42,7 @@
     "eslint": "8.18.0",
     "eslint-config-next": "12.2.1",
     "prettier": "^2.8.7",
-    "prisma": "^4.1.0",
-    "typescript": "4.7.4"
+    "prisma": "^4.11.0",
+    "typescript": "^5.0.4"
   }
 }
