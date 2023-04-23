@@ -6,4 +6,4 @@ function BodyWrapper(props: Props) {
   return <Container maxWidth="md">{props.children}</Container>;
 }
 
-export default BodyWrapper;
+export { BodyWrapper };

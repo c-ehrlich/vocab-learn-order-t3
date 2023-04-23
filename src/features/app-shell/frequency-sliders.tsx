@@ -2,7 +2,7 @@ import { Box, Slider, Typography } from "@mui/material";
 import { useAtom } from "jotai";
 import { FrequencyListWeights } from "../../server/resource/vocab/vocab.schema";
 import { frequencyListWeightsAtom } from "../../utils/jotai";
-import ValueLabelComponent from "./value-label";
+import { ValueLabel } from "./value-label";
 
 const frequencyLists = [
   { name: "animeJDrama", title: "Anime & J-Drama" },
@@ -16,7 +16,7 @@ const frequencyLists = [
   { name: "wikipedia", title: "Wikipedia" },
 ];
 
-function Sliders() {
+function FrequencySliders() {
   const [frequencyListWeights, setFrequencyListWeights] = useAtom(
     frequencyListWeightsAtom
   );
@@ -37,7 +37,7 @@ function Sliders() {
             }}
             valueLabelDisplay="auto"
             components={{
-              ValueLabel: ValueLabelComponent,
+              ValueLabel,
             }}
             aria-label="custom thumb label"
             value={
@@ -50,4 +50,4 @@ function Sliders() {
   );
 }
 
-export default Sliders;
+export { FrequencySliders };

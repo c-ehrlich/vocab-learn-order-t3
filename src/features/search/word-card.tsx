@@ -198,4 +198,4 @@ function CardChips(props: { word: FoundWord }) {
   );
 }
 
-export default WordCard;
+export { WordCard };

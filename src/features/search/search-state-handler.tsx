@@ -12,7 +12,7 @@ import {
   searchWordsAtom,
 } from "../../utils/jotai";
 import { trpc } from "../../utils/trpc";
-import SearchResultsLayout from "./search-results-layout";
+import { SearchResultsLayout } from "./search-results-layout";
 
 function SearchStateHandler() {
   const [searchFieldInput, __setSearchFieldInput] =
@@ -79,4 +79,4 @@ function SearchStateHandler() {
   );
 }
 
-export default SearchStateHandler;
+export { SearchStateHandler };

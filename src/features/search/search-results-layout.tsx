@@ -6,8 +6,8 @@ import { useAtom } from "jotai";
 import { isSearchingAtom, searchFieldInputAtom } from "../../utils/jotai";
 
 // other imports
-import WordCard from "./word-card";
-import WordCardMini from "./word-card-mini";
+import { WordCard } from "./word-card";
+import { WordCardMini } from "./word-card-mini";
 import { RouterOutput } from "../../utils/trpc";
 
 export type SearchResultsLayoutProps = RouterOutput["vocab"]["learnOrder"];
@@ -67,4 +67,4 @@ const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
   );
 };
 
-export default SearchResultsLayout;
+export { SearchResultsLayout };

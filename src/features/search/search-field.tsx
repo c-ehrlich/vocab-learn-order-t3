@@ -119,4 +119,4 @@ function SearchField() {
   );
 }
 
-export default SearchField;
+export { SearchField };

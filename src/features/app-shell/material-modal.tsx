@@ -41,4 +41,4 @@ const MaterialModal = (props: {
   );
 };
 
-export default MaterialModal;
+export { MaterialModal };

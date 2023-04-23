@@ -21,11 +21,11 @@ import {
   searchWordsAtom,
 } from "../../utils/jotai";
 import { useState } from "react";
-import Sliders from "./frequency-sliders";
-import MaterialModal from "./material-modal";
-import HelpModalContents from "./help-modal-contents";
+import { MaterialModal } from "./material-modal";
+import { HelpModalContents } from "./help-modal-contents";
 import { COLOR_LIGHT } from "../../theme/defaultTheme";
 import { trpc } from "../../utils/trpc";
+import { FrequencySliders } from "./frequency-sliders";
 
 function Header() {
   const [isSearching, setIsSearching] = useAtom(isSearchingAtom);
@@ -108,7 +108,7 @@ function Header() {
               open={Boolean(anchorElFrequency)}
               onClose={() => setAnchorElFrequency(null)}
             >
-              <Sliders />
+              <FrequencySliders />
             </Menu>
           </Box>
           <Typography
@@ -164,4 +164,4 @@ function Header() {
   );
 }
 
-export default Header;
+export { Header };

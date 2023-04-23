@@ -6,7 +6,7 @@ interface ValueLabelProps {
   value: number;
 }
 
-function ValueLabelComponent(props: ValueLabelProps) {
+function ValueLabel(props: ValueLabelProps) {
   const { children, value } = props;
 
   return (
@@ -15,4 +15,5 @@ function ValueLabelComponent(props: ValueLabelProps) {
     </Tooltip>
   );
 }
-export default ValueLabelComponent;
+
+export { ValueLabel };

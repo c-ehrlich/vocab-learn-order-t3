@@ -1,8 +1,6 @@
 // MUI imports
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
-import IconButton from "@mui/material/IconButton";
 
 // other imports
 import { SearchResultsLayoutProps } from "./search-results-layout";
@@ -60,9 +58,4 @@ function WordCardMini(props: { word: NotFoundWord }) {
   );
 }
 
-const CheckIconButton = styled(IconButton)`
-  margin-right: 8px;
-  margin-top: 4px;
-`;
-
-export default WordCardMini;
+export { WordCardMini };

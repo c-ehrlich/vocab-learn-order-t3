@@ -76,4 +76,4 @@ const HelpModalContents = (props: Props) => {
   );
 };
 
-export default HelpModalContents;
+export { HelpModalContents };
