@@ -13,9 +13,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // Other imports
 import { SearchResultsLayoutProps } from "./search-results-layout";
 import { useState } from "react";
-import { trpc } from "../../utils/trpc";
 import { useAtom } from "jotai";
-import { frequencyListWeightsAtom, searchWordsAtom } from "../../utils/jotai";
+import { searchResultAtom } from "../../utils/jotai";
 import { CardActionButtons, CardHeaderComponent } from "./word-card-shared";
 
 type FoundWord = SearchResultsLayoutProps["words"][number];
@@ -38,40 +37,17 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 const WordCard = (props: Props) => {
   const [expanded, setExpanded] = useState(false);
-  const [frequencyListWeights, __setFrequencyListWeights] = useAtom(
-    frequencyListWeightsAtom
-  );
-  const [searchWords, __setSearchWords] = useAtom(searchWordsAtom);
-
-  const queryClient = trpc.useContext();
+  const [__searchResult, setSearchResult] = useAtom(searchResultAtom);
 
   function deleteWord() {
-    const currentData = queryClient.vocab.learnOrder.getData({
-      words: searchWords,
-      weights: frequencyListWeights,
-    });
-    if (!currentData) return;
-
-    const index = currentData.words.findIndex((w) => w === props.word);
-    if (index >= 0) {
-      const newData = {
-        ...currentData,
-        words: ([] as FoundWord[]).concat(
-          currentData.words.slice(0, index),
-          currentData.words.slice(index + 1)
-        ),
-      };
-      queryClient.vocab.learnOrder.setData(
-        {
-          words: searchWords,
-          weights: frequencyListWeights,
-        },
-        {
-          words: newData?.words || [],
-          notFound: newData?.notFound || [],
-        }
-      );
-    }
+    setSearchResult((currentData) =>
+      currentData
+        ? {
+            ...currentData,
+            words: currentData.words.filter((word) => word.word !== props.word.word),
+          }
+        : currentData
+    );
   }
 
   return (

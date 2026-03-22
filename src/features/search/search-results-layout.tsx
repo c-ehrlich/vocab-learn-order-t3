@@ -3,21 +3,27 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useAtom } from "jotai";
-import { isSearchingAtom, searchFieldInputAtom } from "../../utils/jotai";
+import {
+  isSearchingAtom,
+  searchFieldInputAtom,
+  searchResultAtom,
+} from "../../utils/jotai";
 
 // other imports
 import { WordCard } from "./word-card";
 import { WordCardMini } from "./word-card-mini";
-import { RouterOutput } from "../../utils/trpc";
+import { SearchResult } from "./vocab-types";
 
-export type SearchResultsLayoutProps = RouterOutput["vocab"]["learnOrder"];
+export type SearchResultsLayoutProps = SearchResult;
 
 const SearchResultsLayout = (props: SearchResultsLayoutProps) => {
   const [__isSearching, setIsSearching] = useAtom(isSearchingAtom);
   const [__searchFieldInput, setSearchFieldInput] =
     useAtom(searchFieldInputAtom);
+  const [__searchResult, setSearchResult] = useAtom(searchResultAtom);
 
   function doneWithSearch() {
+    setSearchResult(null);
     setSearchFieldInput("");
     setIsSearching(false);
   }

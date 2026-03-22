@@ -15,31 +15,21 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 // Other imports
 import { useAtom } from "jotai";
-import {
-  frequencyListWeightsAtom,
-  isSearchingAtom,
-  searchWordsAtom,
-} from "../../utils/jotai";
+import { isSearchingAtom, searchResultAtom } from "../../utils/jotai";
 import { useState } from "react";
 import { MaterialModal } from "./material-modal";
 import { HelpModalContents } from "./help-modal-contents";
 import { COLOR_LIGHT } from "../../theme/defaultTheme";
-import { trpc } from "../../utils/trpc";
 import { FrequencySliders } from "./frequency-sliders";
 
 function Header() {
   const [isSearching, setIsSearching] = useAtom(isSearchingAtom);
-  const [frequencyListWeights, __setFrequencyListWeights] = useAtom(
-    frequencyListWeightsAtom
-  );
-  const [searchWords, __setSearchWords] = useAtom(searchWordsAtom);
+  const [searchResult, __setSearchResult] = useAtom(searchResultAtom);
 
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false);
   const [anchorElFrequency, setAnchorElFrequency] =
     useState<null | HTMLElement>(null);
-
-  const queryClient = trpc.useContext();
 
   const temporarilyOpenSnackbar = (
     openStateSetter: (value: React.SetStateAction<boolean>) => void
@@ -51,21 +41,17 @@ function Header() {
   };
 
   async function saveRemainingWordsToClipboard() {
-    const query = queryClient.vocab.learnOrder.getData({
-      words: searchWords,
-      weights: frequencyListWeights,
-    });
-    if (query) {
+    if (searchResult) {
       let words = [] as string[];
 
-      query.words.forEach((word) => {
+      searchResult.words.forEach((word) => {
         const multiplier = word.multiplier || 1;
         for (let i = 0; i < multiplier; i++) {
           words.push(word.word);
         }
       });
 
-      query.notFound.forEach((word) => words.push(word));
+      searchResult.notFound.forEach((word) => words.push(word));
       const text = words.join(", ");
       await navigator.clipboard.writeText(text);
       temporarilyOpenSnackbar(setSuccessSnackbarOpen);

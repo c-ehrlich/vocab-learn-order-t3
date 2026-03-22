@@ -5,45 +5,67 @@ import Stack from "@mui/material/Stack";
 
 // other imports
 import { useAtom } from "jotai";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import {
   frequencyListWeightsAtom,
   searchFieldInputAtom,
-  searchWordsAtom,
+  searchResultAtom,
 } from "../../utils/jotai";
-import { trpc } from "../../utils/trpc";
 import { SearchResultsLayout } from "./search-results-layout";
+import { getLearnOrder } from "./vocab-client";
+import { normalizeSubmittedWords } from "./search-utils";
+import { SearchResult } from "./vocab-types";
+
+type SearchStatus =
+  | { state: "loading" }
+  | { state: "error"; message: string }
+  | { state: "ready" };
 
 function SearchStateHandler() {
   const [searchFieldInput, __setSearchFieldInput] =
     useAtom(searchFieldInputAtom);
-  const [__searchWords, setSearchWords] = useAtom(searchWordsAtom);
-
-  const words = useMemo(() => {
-    return searchFieldInput
-      .replace(/(\(|（)(.[^()（）]*)(\)|）)/gm, " ") // remove anything inside () or （）
-      .replace(/(\s|\n|,|、|・|·)+/gm, " ") // remove delineation chars and consolidate whitespace
-      .trim()
-      .split(" "); // turn into aray
-  }, [searchFieldInput]);
-  setSearchWords(words);
-
   const [frequencyListWeights, __setFrequencyListWeights] = useAtom(
     frequencyListWeightsAtom
   );
+  const [searchResult, setSearchResult] = useAtom(searchResultAtom);
+  const [status, setStatus] = useState<SearchStatus>({ state: "loading" });
 
-  const vocabQuery = trpc.vocab.learnOrder.useQuery(
-    {
+  useEffect(() => {
+    let isCancelled = false;
+    const words = normalizeSubmittedWords(searchFieldInput);
+
+    setStatus({ state: "loading" });
+    setSearchResult(null);
+
+    void getLearnOrder({
       words,
       weights: frequencyListWeights,
-    },
-    {
-      staleTime: Infinity,
-      refetchOnWindowFocus: false,
-    }
-  );
+    })
+      .then((data: SearchResult) => {
+        if (isCancelled) {
+          return;
+        }
 
-  if (vocabQuery.isLoading) {
+        setSearchResult(data);
+        setStatus({ state: "ready" });
+      })
+      .catch((error: unknown) => {
+        if (isCancelled) {
+          return;
+        }
+
+        setStatus({
+          state: "error",
+          message: error instanceof Error ? error.message : "Unknown error",
+        });
+      });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [frequencyListWeights, searchFieldInput, setSearchResult]);
+
+  if (status.state === "loading") {
     return (
       <Stack spacing={2} marginTop={2} marginBottom={4}>
         <Box
@@ -59,11 +81,11 @@ function SearchStateHandler() {
     );
   }
 
-  if (vocabQuery.isError) {
-    return <div>Error: {JSON.stringify(vocabQuery.error)}</div>;
+  if (status.state === "error") {
+    return <div>Error: {status.message}</div>;
   }
 
-  if (!vocabQuery.data) {
+  if (!searchResult) {
     return (
       <div>
         something went wrong... not loading, not error, but don&apos;t have data
@@ -73,8 +95,8 @@ function SearchStateHandler() {
 
   return (
     <SearchResultsLayout
-      words={vocabQuery.data.words}
-      notFound={vocabQuery.data.notFound}
+      words={searchResult.words}
+      notFound={searchResult.notFound}
     />
   );
 }

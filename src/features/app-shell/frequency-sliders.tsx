@@ -1,6 +1,7 @@
 import { Box, Slider, Typography } from "@mui/material";
+import type { SliderProps } from "@mui/material";
 import { useAtom } from "jotai";
-import { FrequencyListWeights } from "../../server/resource/vocab/vocab.schema";
+import type { FrequencyListWeights } from "../search/vocab-types";
 import { frequencyListWeightsAtom } from "../../utils/jotai";
 import { ValueLabel } from "./value-label";
 
@@ -29,10 +30,13 @@ function FrequencySliders() {
             {list.title}
           </Typography>
           <Slider
-            onChange={(e: Event) => {
+            onChange={(
+              _event: Event,
+              value: Parameters<NonNullable<SliderProps["onChange"]>>[1]
+            ) => {
               setFrequencyListWeights({
                 ...frequencyListWeights,
-                [list.name]: (e.target as HTMLInputElement).value,
+                [list.name]: Array.isArray(value) ? value[0] ?? 0 : value,
               });
             }}
             valueLabelDisplay="auto"
