@@ -41,6 +41,17 @@ export function CardActionButtons(props: { word: string }) {
           ImmersionKit
         </Button>
       </LinkWithoutMargin>
+      <LinkWithoutMargin
+        href={`https://4989.c-ehrlich.dev/?q=${encodeURIComponent(props.word)}`}
+        target="_blank"
+        rel="noopener"
+        color="inherit"
+        underline="none"
+      >
+        <Button size="medium" variant="contained">
+          4989単語調べ
+        </Button>
+      </LinkWithoutMargin>
     </CardActionButtonGroup>
   );
 }
