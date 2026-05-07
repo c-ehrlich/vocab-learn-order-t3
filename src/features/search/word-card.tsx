@@ -14,8 +14,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { SearchResultsLayoutProps } from "./search-results-layout";
 import { useState } from "react";
 import { useAtom } from "jotai";
-import { searchResultAtom } from "../../utils/jotai";
+import { searchFieldInputAtom, searchResultAtom } from "../../utils/jotai";
 import { CardActionButtons, CardHeaderComponent } from "./word-card-shared";
+import { removeWordFromSubmittedInput } from "./search-utils";
 
 type FoundWord = SearchResultsLayoutProps["words"][number];
 
@@ -37,9 +38,13 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 const WordCard = (props: Props) => {
   const [expanded, setExpanded] = useState(false);
+  const [searchFieldInput, setSearchFieldInput] = useAtom(searchFieldInputAtom);
   const [__searchResult, setSearchResult] = useAtom(searchResultAtom);
 
   function deleteWord() {
+    setSearchFieldInput(
+      removeWordFromSubmittedInput(searchFieldInput, props.word.word)
+    );
     setSearchResult((currentData) =>
       currentData
         ? {

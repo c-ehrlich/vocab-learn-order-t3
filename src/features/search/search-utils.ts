@@ -15,6 +15,15 @@ export function normalizeSubmittedWords(input: string): string[] {
     .split(" ");
 }
 
+export function removeWordFromSubmittedInput(
+  input: string,
+  wordToRemove: string
+): string {
+  return normalizeSubmittedWords(input)
+    .filter((word) => word !== wordToRemove)
+    .join(", ");
+}
+
 export function buildWordMap(words: Word[]): Map<string, Word> {
   const wordMap = new Map<string, Word>();
 

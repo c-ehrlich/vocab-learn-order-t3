@@ -4,6 +4,7 @@ import {
   buildSearchResult,
   getWeightedWordRanking,
   normalizeSubmittedWords,
+  removeWordFromSubmittedInput,
 } from "./search-utils";
 import { FrequencyListWeights, ProcessedWord, Word } from "./vocab-types";
 
@@ -45,6 +46,10 @@ describe("normalizeSubmittedWords", () => {
       "鳥",
       "魚",
     ]);
+  });
+
+  it("removes all matching words from the stored input string", () => {
+    expect(removeWordFromSubmittedInput("猫、犬\n猫, 鳥", "猫")).toBe("犬, 鳥");
   });
 });
 

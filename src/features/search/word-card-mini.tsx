@@ -5,15 +5,18 @@ import CardActions from "@mui/material/CardActions";
 // other imports
 import { SearchResultsLayoutProps } from "./search-results-layout";
 import { useAtom } from "jotai";
-import { searchResultAtom } from "../../utils/jotai";
+import { searchFieldInputAtom, searchResultAtom } from "../../utils/jotai";
 import { CardActionButtons, CardHeaderComponent } from "./word-card-shared";
+import { removeWordFromSubmittedInput } from "./search-utils";
 
 type NotFoundWord = SearchResultsLayoutProps["notFound"][number];
 
 function WordCardMini(props: { word: NotFoundWord }) {
+  const [searchFieldInput, setSearchFieldInput] = useAtom(searchFieldInputAtom);
   const [__searchResult, setSearchResult] = useAtom(searchResultAtom);
 
   function deleteNotFoundWord() {
+    setSearchFieldInput(removeWordFromSubmittedInput(searchFieldInput, props.word));
     setSearchResult((currentData) =>
       currentData
         ? {
